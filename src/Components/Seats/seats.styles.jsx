@@ -11,7 +11,9 @@ export const BookingContainer = styled.div`
   margin-bottom: 30px;
 `
 
-export const SeatContainer = styled.div``
+export const SeatContainer = styled.div`
+  overflow: auto;
+`
 
 export const SeatRow = styled.div`
   display: flex;

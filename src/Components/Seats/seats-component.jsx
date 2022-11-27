@@ -1,7 +1,7 @@
 import { useNavigate, useSearchParams } from "react-router-dom"
 import MOVIE_DATA from "../../movies-data.json"
 import { Button } from "../../Components/Button/button.styles"
-import Seat from "../Seat/seat.component"
+import Seat, { SEAT_TYPE_CLASSES } from "../Seat/seat.component"
 import {
   BookingContainer,
   SeatContainer,
@@ -34,7 +34,9 @@ const Seats = () => {
             <SeatRow>
               <span>{row}</span>
               {columns.map((col) => {
-                const colList = <Seat>{col}</Seat>
+                const colList = (
+                  <Seat seatType={SEAT_TYPE_CLASSES.base}>{col}</Seat>
+                )
                 return colList
               })}
               <br />

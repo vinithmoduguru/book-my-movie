@@ -2,13 +2,14 @@ import { useSearchParams } from "react-router-dom"
 import { Button } from "../Button/button.styles"
 import MOVIE_DATA from "../../movies-data.json"
 import Seat from "../Seat/seat.component"
+import { SEAT_TYPE_CLASSES } from "../Seat/seat.component"
 import {
   CustomiseContainer,
   SeatContainer,
   SeatRow,
   SeatSetters,
 } from "./customise-seat.styles"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 const CustomiseSeat = () => {
   const [searchparams] = useSearchParams()
@@ -16,26 +17,61 @@ const CustomiseSeat = () => {
   const { id, name, price, theatre } = MOVIE_DATA.filter(
     (movie) => movie.id === query_id
   )[0]
-  const rows = ["A", "B", "C", "D", "E", "F", "G", "H"]
-  const columns = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  const getName = (n) => {
+    var ordA = "a".charCodeAt(0)
+    var ordZ = "z".charCodeAt(0)
+    var len = ordZ - ordA + 1
 
-  const [rowsize, setRowsize] = useState("20")
-  const [columnsize, setColumnsize] = useState("6")
+    var s = ""
+    while (n >= 0) {
+      s = String.fromCharCode((n % len) + ordA) + s
+      n = Math.floor(n / len) - 1
+    }
+    return s
+  }
+
+  const getRows = (col) => {
+    var cols = []
+    for (let index = 0; index < col; index++) {
+      cols.push(getName(index).toUpperCase())
+    }
+    return cols
+  }
+  const [rowsize, setRowsize] = useState(6)
+  const [columnsize, setColumnsize] = useState(20)
+  const [columns, setColumns] = useState([])
+  const [rows, setRows] = useState([])
+
+  useEffect(() => {
+    const columns = [
+      ...Array(columnsize > 0 && parseInt(columnsize) + 1).keys(),
+    ].slice(1)
+    setColumns(columns)
+  }, [columnsize])
+
+  useEffect(() => {
+    const rows = getRows(rowsize)
+    setRows(rows)
+  }, [rowsize])
   return (
     <CustomiseContainer>
       <h1>
         {name}({theatre}
       </h1>
       <SeatSetters>
+        {/* <label for="rows">Row</label> */}
         <input
           type="number"
           name="rows"
+          id="rows"
           value={rowsize}
           onChange={(e) => setRowsize(e.target.value)}
         />
+        {/* <label for="columns">Column</label> */}
         <input
           type="number"
           name="columns"
+          id="columns"
           value={columnsize}
           onChange={(e) => setColumnsize(e.target.value)}
         />
@@ -50,7 +86,9 @@ const CustomiseSeat = () => {
             <SeatRow>
               <span>{row}</span>
               {columns.map((col) => {
-                const colList = <Seat className="block" num={col} />
+                const colList = (
+                  <Seat seatType={SEAT_TYPE_CLASSES.base}>{col}</Seat>
+                )
                 return colList
               })}
               <br />
