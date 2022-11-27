@@ -8,6 +8,7 @@ import {
   SeatRow,
   Screen,
 } from "./seats.styles"
+import { useState } from "react"
 const Seats = () => {
   const [searchparams] = useSearchParams()
   const query_id = searchparams.get("id")
@@ -33,7 +34,7 @@ const Seats = () => {
             <SeatRow>
               <span>{row}</span>
               {columns.map((col) => {
-                const colList = <Seat num={col} />
+                const colList = <Seat>{col}</Seat>
                 return colList
               })}
               <br />

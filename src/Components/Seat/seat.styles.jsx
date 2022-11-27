@@ -14,7 +14,6 @@ export const SeatContainer = styled.div`
   box-shadow: 0 2px 4px 0 rgb(0 0 0 / 11%), 0 2px 4px 0 rgb(0 0 0 / 14%);
 
   &:hover {
-    background-color: #1ea83c;
     transform: scale(1.2);
   }
 `

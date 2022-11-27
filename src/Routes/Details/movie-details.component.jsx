@@ -20,6 +20,12 @@ const MovieDetail = () => {
       search: `?id=${id}`,
     })
   }
+  const customiseSeatHandler = (id) => {
+    navigate({
+      pathname: "/customise",
+      search: `?id=${id}`,
+    })
+  }
 
   return (
     <>
@@ -34,7 +40,7 @@ const MovieDetail = () => {
 
       <ButtonsContainer>
         <Button onClick={() => bookingHandler(id)}>BOOK TICKET</Button>
-        <Button>CUSTOMIZE ROW</Button>
+        <Button onClick={() => customiseSeatHandler(id)}>CUSTOMIZE ROW</Button>
       </ButtonsContainer>
     </>
   )
