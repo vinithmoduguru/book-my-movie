@@ -8,7 +8,8 @@ import {
   SeatRow,
   Screen,
 } from "./seats.styles"
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { BookingContext } from "../../Contexts/booking.context"
 const Seats = () => {
   const [searchparams] = useSearchParams()
   const query_id = searchparams.get("id")
@@ -16,8 +17,7 @@ const Seats = () => {
     (movie) => movie.id === query_id
   )[0]
 
-  const rows = ["A", "B", "C", "D", "E", "F", "G", "H"]
-  const columns = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  const { rows, columns, bookingTotal } = useContext(BookingContext)
 
   return (
     <BookingContainer>
@@ -35,7 +35,9 @@ const Seats = () => {
               <span>{row}</span>
               {columns.map((col) => {
                 const colList = (
-                  <Seat seatType={SEAT_TYPE_CLASSES.base}>{col}</Seat>
+                  <Seat key={`${row}:${col}`} seatType={SEAT_TYPE_CLASSES.base}>
+                    {col}
+                  </Seat>
                 )
                 return colList
               })}
@@ -45,7 +47,7 @@ const Seats = () => {
           return rowList
         })}
       </SeatContainer>
-      <Button>Pay ₹{price}</Button>
+      <Button>Pay ₹{bookingTotal}</Button>
     </BookingContainer>
   )
 }
