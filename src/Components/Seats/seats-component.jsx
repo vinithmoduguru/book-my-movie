@@ -1,5 +1,4 @@
 import { useNavigate, useSearchParams } from "react-router-dom"
-import MOVIE_DATA from "../../movies-data.json"
 import { Button } from "../../Components/Button/button.styles"
 import Seat, { SEAT_TYPE_CLASSES } from "../Seat/seat.component"
 import {
@@ -10,7 +9,6 @@ import {
 } from "./seats.styles"
 import { useContext, useEffect, useState } from "react"
 import { BookingContext } from "../../Contexts/booking.context"
-// import { useElements, useStripe } from "@stripe/react-stripe-js"
 const Seats = () => {
   const {
     rows,
@@ -30,7 +28,6 @@ const Seats = () => {
   } = movie
   const navigate = useNavigate()
   const paymentHandler = () => {
-    // navigate("/seats")
     const newMovieMap = movieMap.map((mv) =>
       mv.id === movie.id
         ? {

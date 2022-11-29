@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { BookingContext } from "../../Contexts/booking.context"
 import { BaseSeat, BlockedSeat, BookedSeat, SelectedSeat } from "./seat.styles"
 
@@ -19,7 +19,7 @@ const getSeat = (seatType = SEAT_TYPE_CLASSES.base) =>
 
 const Seat = ({ id, children, seatType }) => {
   const [isActive, setIsActive] = useState(false)
-  const { selected, setSelected } = useContext(BookingContext)
+  const { selected, setSelected, setBookingTotal } = useContext(BookingContext)
   const curr_selected = selected
   const handleSelection = (id, seatType) => {
     if (seatType !== "booked") {
@@ -32,6 +32,11 @@ const Seat = ({ id, children, seatType }) => {
       setSelected(curr_selected)
     }
   }
+  useEffect(() => {
+    const newTotal = selected.size * 200
+    setBookingTotal(newTotal)
+  }, [curr_selected, selected.size])
+
   const CustomSeat = getSeat(seatType)
   return (
     <CustomSeat

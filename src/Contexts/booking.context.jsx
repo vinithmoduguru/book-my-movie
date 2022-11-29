@@ -76,6 +76,7 @@ export const BookingProvider = ({ children }) => {
       value={{
         booked,
         bookingTotal,
+        setBookingTotal,
         changeSeatBooking,
         selected,
         setSelected,
