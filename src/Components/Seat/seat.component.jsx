@@ -21,20 +21,24 @@ const Seat = ({ id, children, seatType }) => {
   const [isActive, setIsActive] = useState(false)
   const { selected, setSelected } = useContext(BookingContext)
   const curr_selected = selected
-  const handleSelection = (id) => {
-    setIsActive(!isActive)
-    if (!isActive) {
-      curr_selected.add(id)
-    } else {
-      curr_selected.delete(id)
+  const handleSelection = (id, seatType) => {
+    if (seatType !== "booked") {
+      setIsActive(!isActive)
+      if (!isActive) {
+        curr_selected.add(id)
+      } else {
+        curr_selected.delete(id)
+      }
+      setSelected(curr_selected)
     }
-    setSelected(curr_selected)
   }
   const CustomSeat = getSeat(seatType)
   return (
     <CustomSeat
-      onClick={() => handleSelection(id)}
-      style={{ backgroundColor: isActive && "#1ea83c" }}>
+      onClick={() => handleSelection(id, seatType)}
+      style={{
+        backgroundColor: isActive && seatType !== "booked" && "#1ea83c",
+      }}>
       {children}
     </CustomSeat>
   )

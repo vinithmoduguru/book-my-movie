@@ -6,6 +6,7 @@ import MovieList from "./Components/movies-preview/movies-preview.component"
 import MovieDetail from "./Routes/Details/movie-details.component"
 import Seats from "./Components/Seats/seats-component"
 import CustomiseSeat from "./Components/customise-seats/customise-seat.component"
+import Payment from "./Routes/Payment/payments-page.component"
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
         <Route path="details/*" element={<MovieDetail />} />
         <Route path="seats/*" element={<Seats />} />
         <Route path="customise/*" element={<CustomiseSeat />} />
+        <Route path="payment/*" element={<Payment />} />
       </Route>
     </Routes>
   )

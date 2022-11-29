@@ -43,7 +43,6 @@ export const BookedSeat = styled.div`
   margin: 10px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  cursor: pointer;
   font-size: 12px;
   text-align: center;
   justify-content: center;

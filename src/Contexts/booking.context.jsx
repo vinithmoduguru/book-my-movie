@@ -63,9 +63,9 @@ export const BookingProvider = ({ children }) => {
   }, [rowsize])
 
   useEffect(() => {
-    const newBookingTotal = booked.length * 200
+    const newBookingTotal = selected.size * 200
     setBookingTotal(newBookingTotal)
-  }, [booked])
+  }, [selected])
 
   const changeSeatBooking = (seatToChange) => {
     setBooked(addOrRemoveSeat(booked, seatToChange))

@@ -8,26 +8,43 @@ import {
   SeatRow,
   Screen,
 } from "./seats.styles"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { BookingContext } from "../../Contexts/booking.context"
 // import { useElements, useStripe } from "@stripe/react-stripe-js"
 const Seats = () => {
+  const {
+    rows,
+    columns,
+    bookingTotal,
+    movieMap,
+    setMovieMap,
+    rowsize,
+    columnsize,
+    selected,
+  } = useContext(BookingContext)
   const [searchparams] = useSearchParams()
   const query_id = searchparams.get("id")
-
-  //   const elements = useElements()
-  //   const stripe = useStripe()
-  //   const submitHandler = async (e) => {
-  //     e.preventDefault()
-  //     if (!stripe || !elements) {
-  //       return
-  //     }
-  //   }
-  const { rows, columns, bookingTotal, movieMap } = useContext(BookingContext)
   const movie = movieMap.filter((movie) => movie.id === query_id)[0]
   const {
-    seat: { blocked },
+    seat: { booked },
   } = movie
+  const navigate = useNavigate()
+  const paymentHandler = () => {
+    // navigate("/seats")
+    const newMovieMap = movieMap.map((mv) =>
+      mv.id === movie.id
+        ? {
+            ...mv,
+            rowsize: rowsize,
+            columnsize: columnsize,
+            seat: { booked: selected },
+          }
+        : mv
+    )
+    setMovieMap(newMovieMap)
+    alert("Selected seats has been booked")
+  }
+
   return (
     <BookingContainer>
       <h1>
@@ -45,8 +62,8 @@ const Seats = () => {
               {columns.map((col) => {
                 const id = `${row}:${col}`
                 const seatType =
-                  blocked.size > 0 && blocked.has(id)
-                    ? SEAT_TYPE_CLASSES.blocked
+                  booked.size > 0 && booked.has(id)
+                    ? SEAT_TYPE_CLASSES.booked
                     : SEAT_TYPE_CLASSES.base
                 const colList = (
                   <Seat id={id} seatType={seatType}>
@@ -61,7 +78,7 @@ const Seats = () => {
           return rowList
         })}
       </SeatContainer>
-      <Button>Pay ₹{bookingTotal}</Button>
+      <Button onClick={paymentHandler}>Pay ₹{bookingTotal}</Button>
     </BookingContainer>
   )
 }
