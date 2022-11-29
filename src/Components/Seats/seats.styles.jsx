@@ -1,7 +1,6 @@
 import styled from "styled-components"
 
 export const BookingContainer = styled.div`
-  /* font-size: 10px; */
   display: flex;
   flex-direction: column;
   align-items: center;
