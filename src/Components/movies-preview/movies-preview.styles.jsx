@@ -5,8 +5,8 @@ export const MovieListContainer = styled.div`
   display: grid;
   font-size: 12px;
   grid-template-columns: repeat(3, 1fr);
-  column-gap: 20px;
-  row-gap: 20px;
+  column-gap: 15px;
+  row-gap: 15px;
   text-align: center;
   margin-left: 15%;
   margin-top: 5%;
@@ -18,6 +18,7 @@ export const MovieListContainer = styled.div`
 
 export const Heading = styled.h2`
   text-align: center;
-  margin-top: 15%;
+  align-items: center;
+  margin-top: 10%;
   font-size: 2em;
 `

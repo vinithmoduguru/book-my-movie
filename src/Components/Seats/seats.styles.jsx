@@ -8,7 +8,8 @@ export const BookingContainer = styled.div`
   justify-content: center;
   height: 95vh;
   perspective: 1000px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  margin-top: 20px;
 `
 
 export const SeatContainer = styled.div`
