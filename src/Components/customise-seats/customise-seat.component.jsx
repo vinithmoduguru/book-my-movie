@@ -1,6 +1,5 @@
 import { useSearchParams } from "react-router-dom"
 import { Button } from "../Button/button.styles"
-import MOVIE_DATA from "../../movies-data.json"
 import Seat from "../Seat/seat.component"
 import { SEAT_TYPE_CLASSES } from "../Seat/seat.component"
 import {
@@ -10,21 +9,46 @@ import {
   SeatSetters,
 } from "./customise-seat.styles"
 import { useContext, useEffect, useState } from "react"
-import { BookingContext } from "../../Contexts/booking.context"
+import { BookingContext, selected } from "../../Contexts/booking.context"
 
 const CustomiseSeat = () => {
   const [searchparams] = useSearchParams()
   const query_id = searchparams.get("id")
-  const movie = MOVIE_DATA.filter((movie) => movie.id === query_id)[0]
-  const { id, name, price, theatre } = movie
+  const {
+    rowsize,
+    setRowsize,
+    setColumnsize,
+    columnsize,
+    rows,
+    selected,
+    columns,
+    movieMap,
+    setMovieMap,
+  } = useContext(BookingContext)
+  const movie = movieMap.filter((movie) => movie.id === query_id)[0]
+  const {
+    seat: { blocked },
+  } = movie
 
-  const { rowsize, setRowsize, setColumnsize, columnsize, rows, columns } =
-    useContext(BookingContext)
+  const submitHandler = () => {
+    const newMovieMap = movieMap.map((mv) =>
+      mv.id === movie.id
+        ? {
+            ...mv,
+            rowsize: rowsize,
+            columnsize: columnsize,
+            seat: { blocked: selected },
+          }
+        : mv
+    )
+    setMovieMap(newMovieMap)
+    alert("Selected seats has been blocked")
+  }
 
   return (
     <CustomiseContainer>
       <h1>
-        {name}({theatre}
+        {movie.name}({movie.theatre})
       </h1>
       <SeatSetters>
         {/* <label for="rows">Row</label> */}
@@ -43,7 +67,7 @@ const CustomiseSeat = () => {
           value={columnsize}
           onChange={(e) => setColumnsize(e.target.value)}
         />
-        <Button>Save Setup</Button>
+        <Button onClick={submitHandler}>Save Setup</Button>
       </SeatSetters>
       <h2>
         Select Seats to be <span>Blocked</span>
@@ -54,8 +78,13 @@ const CustomiseSeat = () => {
             <SeatRow>
               <span>{row}</span>
               {columns.map((col) => {
+                const id = `${row}:${col}`
+                const seatType =
+                  blocked.size > 0 && blocked.has(id)
+                    ? SEAT_TYPE_CLASSES.selected
+                    : SEAT_TYPE_CLASSES.base
                 const colList = (
-                  <Seat key={`${row}:${col}`} seatType={SEAT_TYPE_CLASSES.base}>
+                  <Seat id={id} seatType={seatType}>
                     {col}
                   </Seat>
                 )

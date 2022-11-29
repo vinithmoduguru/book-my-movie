@@ -10,19 +10,28 @@ import {
 } from "./seats.styles"
 import { useContext, useState } from "react"
 import { BookingContext } from "../../Contexts/booking.context"
+// import { useElements, useStripe } from "@stripe/react-stripe-js"
 const Seats = () => {
   const [searchparams] = useSearchParams()
   const query_id = searchparams.get("id")
-  const { id, name, price, theatre } = MOVIE_DATA.filter(
-    (movie) => movie.id === query_id
-  )[0]
 
-  const { rows, columns, bookingTotal } = useContext(BookingContext)
-
+  //   const elements = useElements()
+  //   const stripe = useStripe()
+  //   const submitHandler = async (e) => {
+  //     e.preventDefault()
+  //     if (!stripe || !elements) {
+  //       return
+  //     }
+  //   }
+  const { rows, columns, bookingTotal, movieMap } = useContext(BookingContext)
+  const movie = movieMap.filter((movie) => movie.id === query_id)[0]
+  const {
+    seat: { blocked },
+  } = movie
   return (
     <BookingContainer>
       <h1>
-        {name}({theatre})
+        {movie.name}({movie.theatre})
       </h1>
 
       <Screen></Screen>
@@ -34,8 +43,13 @@ const Seats = () => {
             <SeatRow>
               <span>{row}</span>
               {columns.map((col) => {
+                const id = `${row}:${col}`
+                const seatType =
+                  blocked.size > 0 && blocked.has(id)
+                    ? SEAT_TYPE_CLASSES.blocked
+                    : SEAT_TYPE_CLASSES.base
                 const colList = (
-                  <Seat key={`${row}:${col}`} seatType={SEAT_TYPE_CLASSES.base}>
+                  <Seat id={id} seatType={seatType}>
                     {col}
                   </Seat>
                 )

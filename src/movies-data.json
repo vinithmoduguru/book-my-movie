@@ -5,7 +5,13 @@
     "imageUrl": "https://i.ibb.co/k0mPRFm/sherlock-holmes.jpg",
     "theatre": "Rohini Cinemas",
     "language": "English",
-    "price": 200
+    "price": 200,
+    "seat": {
+      "rowsize": 8,
+      "columnsize": 20,
+      "blocked": [],
+      "booked": []
+    }
   },
   {
     "id": "2",
@@ -13,7 +19,13 @@
     "imageUrl": "https://i.ibb.co/zGqrfs3/love-today-poster.jpg",
     "theatre": "INOX Cinemas",
     "language": "Tamil",
-    "price": 200
+    "price": 200,
+    "seat": {
+      "rowsize": 8,
+      "columnsize": 20,
+      "blocked": [],
+      "booked": []
+    }
   },
   {
     "id": "3",
@@ -21,7 +33,13 @@
     "imageUrl": "https://i.ibb.co/4VGCrcN/ponniyin-selvan-poster-by-kajandra-dfcy7ey-fullview.jpg",
     "theatre": "Palazzo IMAX",
     "language": "Tamil",
-    "price": 200
+    "price": 200,
+    "seat": {
+      "rowsize": 8,
+      "columnsize": 20,
+      "blocked": [],
+      "booked": []
+    }
   },
   {
     "id": "4",
@@ -29,7 +47,13 @@
     "imageUrl": "https://i.ibb.co/YLN2DXS/sita-ramam.jpg",
     "theatre": "Jazz Cinemas",
     "language": "Telugu",
-    "price": 200
+    "price": 200,
+    "seat": {
+      "rowsize": 8,
+      "columnsize": 20,
+      "blocked": [],
+      "booked": []
+    }
   },
   {
     "id": "5",
@@ -37,6 +61,12 @@
     "imageUrl": "https://i.ibb.co/Rh6R8K5/Baahubali-The-Beginning-poster.jpg",
     "theatre": "SPI Cinemas",
     "language": "Telugu",
-    "price": 200
+    "price": 200,
+    "seat": {
+      "rowsize": 8,
+      "columnsize": 20,
+      "blocked": [],
+      "booked": []
+    }
   }
 ]

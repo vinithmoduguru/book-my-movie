@@ -12,7 +12,16 @@ export const BookingContainer = styled.div`
 `
 
 export const SeatContainer = styled.div`
-  overflow: auto;
+  position: relative;
+  height: 80%;
+  box-sizing: border-box;
+  padding: 1em;
+  width: 80%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  position: relative;
+  flex-direction: column-reverse;
 `
 
 export const SeatRow = styled.div`

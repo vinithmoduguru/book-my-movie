@@ -28,7 +28,7 @@ export const SelectedSeat = styled.div`
   font-size: 12px;
   text-align: center;
   justify-content: center;
-  background-color: "#1ea83c";
+  background-color: #1ea83c;
   align-items: center;
   box-shadow: 0 2px 4px 0 rgb(0 0 0 / 11%), 0 2px 4px 0 rgb(0 0 0 / 14%);
 
@@ -53,7 +53,7 @@ export const BookedSeat = styled.div`
 `
 
 export const BlockedSeat = styled.div`
-  display: none;
+  visibility: hidden;
   height: 30px;
   width: 30px;
   margin: 10px;

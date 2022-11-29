@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react"
+import MOVIE_DATA from "../movies-data.json"
 
 const getName = (n) => {
   var ordA = "a".charCodeAt(0)
@@ -37,14 +38,17 @@ export const BookingContext = createContext({
   changeSeatBooking: () => {},
   columns: [],
   rows: [],
+  movieMap: {},
 })
 export const BookingProvider = ({ children }) => {
   const [booked, setBooked] = useState([])
   const [columns, setColumns] = useState([])
   const [columnsize, setColumnsize] = useState(20)
   const [rows, setRows] = useState([])
+  const [selected, setSelected] = useState(new Set())
   const [rowsize, setRowsize] = useState(6)
   const [bookingTotal, setBookingTotal] = useState(0)
+  const [movieMap, setMovieMap] = useState(MOVIE_DATA)
 
   useEffect(() => {
     const columns = [
@@ -66,18 +70,23 @@ export const BookingProvider = ({ children }) => {
   const changeSeatBooking = (seatToChange) => {
     setBooked(addOrRemoveSeat(booked, seatToChange))
   }
+
   return (
     <BookingContext.Provider
       value={{
         booked,
         bookingTotal,
         changeSeatBooking,
+        selected,
+        setSelected,
         columnsize,
         rowsize,
         columns,
         rows,
         setColumnsize,
         setRowsize,
+        movieMap,
+        setMovieMap,
       }}>
       {children}
     </BookingContext.Provider>
