@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react"
+import { createContext, useEffect, useState } from "react"
 import MOVIE_DATA from "../movies-data.json"
 
 const getName = (n) => {

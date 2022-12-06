@@ -9,8 +9,7 @@ export const MovieCardContainer = styled.div`
   flex-direction: column;
   height: 125px;
   width: 250px;
-  align-items: center;
-  justify-content: center;
+  place-items: center;
   position: relative;
   cursor: pointer;
   margin: 20px 10px 0;

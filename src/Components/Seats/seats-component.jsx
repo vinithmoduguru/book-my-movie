@@ -1,4 +1,4 @@
-import { useNavigate, useSearchParams } from "react-router-dom"
+import { useSearchParams } from "react-router-dom"
 import { Button } from "../../Components/Button/button.styles"
 import Seat, { SEAT_TYPE_CLASSES } from "../Seat/seat.component"
 import {
@@ -7,7 +7,7 @@ import {
   SeatRow,
   Screen,
 } from "./seats.styles"
-import { useContext, useEffect, useState } from "react"
+import { useContext } from "react"
 import { BookingContext } from "../../Contexts/booking.context"
 const Seats = () => {
   const {
@@ -19,27 +19,44 @@ const Seats = () => {
     rowsize,
     columnsize,
     selected,
+    setSelected,
   } = useContext(BookingContext)
   const [searchparams] = useSearchParams()
   const query_id = searchparams.get("id")
   const movie = movieMap.filter((movie) => movie.id === query_id)[0]
   const {
-    seat: { booked },
+    seat: { booked, blocked },
   } = movie
-  const navigate = useNavigate()
+
   const paymentHandler = () => {
+    console.log(movieMap)
     const newMovieMap = movieMap.map((mv) =>
       mv.id === movie.id
         ? {
             ...mv,
             rowsize: rowsize,
             columnsize: columnsize,
-            seat: { booked: selected },
+            seat: {
+              ...mv.seat,
+              booked: booked ? new Set([...selected, ...booked]) : selected,
+            },
           }
         : mv
     )
+    setSelected(new Set())
     setMovieMap(newMovieMap)
+    console.log(newMovieMap)
     alert("Selected seats has been booked")
+  }
+
+  const getSeatType = (id) => {
+    if (blocked && blocked.has(id)) {
+      return SEAT_TYPE_CLASSES.blocked
+    } else if (booked && booked.has(id)) {
+      return SEAT_TYPE_CLASSES.booked
+    } else {
+      return SEAT_TYPE_CLASSES.base
+    }
   }
 
   return (
@@ -58,10 +75,7 @@ const Seats = () => {
               <span>{row}</span>
               {columns.map((col) => {
                 const id = `${row}:${col}`
-                const seatType =
-                  booked.size > 0 && booked.has(id)
-                    ? SEAT_TYPE_CLASSES.booked
-                    : SEAT_TYPE_CLASSES.base
+                const seatType = getSeatType(id)
                 const colList = (
                   <Seat id={id} seatType={seatType}>
                     {col}
@@ -75,7 +89,10 @@ const Seats = () => {
           return rowList
         })}
       </SeatContainer>
-      <Button onClick={paymentHandler}>Pay ₹{bookingTotal}</Button>
+
+      {selected.size > 0 && (
+        <Button onClick={paymentHandler}>Pay ₹{bookingTotal}</Button>
+      )}
     </BookingContainer>
   )
 }

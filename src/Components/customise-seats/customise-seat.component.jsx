@@ -24,6 +24,7 @@ const CustomiseSeat = () => {
     columns,
     movieMap,
     setMovieMap,
+    setSelected,
   } = useContext(BookingContext)
   const movie = movieMap.filter((movie) => movie.id === query_id)[0]
   const {
@@ -37,10 +38,14 @@ const CustomiseSeat = () => {
             ...mv,
             rowsize: rowsize,
             columnsize: columnsize,
-            seat: { blocked: selected },
+            seat: {
+              ...mv.seat,
+              blocked: blocked ? new Set([...selected, ...blocked]) : selected,
+            },
           }
         : mv
     )
+    setSelected(new Set())
     setMovieMap(newMovieMap)
     alert("Selected seats has been blocked")
   }
@@ -80,7 +85,7 @@ const CustomiseSeat = () => {
               {columns.map((col) => {
                 const id = `${row}:${col}`
                 const seatType =
-                  blocked.size > 0 && blocked.has(id)
+                  blocked && blocked.has(id)
                     ? SEAT_TYPE_CLASSES.selected
                     : SEAT_TYPE_CLASSES.base
                 const colList = (
