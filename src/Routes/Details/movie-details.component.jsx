@@ -3,13 +3,14 @@ import MOVIE_DATA from "../../movies-data.json"
 import { Button } from "../../Components/Button/button.styles"
 import {
   ButtonsContainer,
+  ImageContainer,
   MovieBookingContainer,
   MovieBookingHeader,
 } from "./movie-details.styles"
 const MovieDetail = () => {
   const [searchparams] = useSearchParams()
   const query_id = searchparams.get("id")
-  const { id, name, price, language } = MOVIE_DATA.filter(
+  const { id, name, price, language, imageUrl } = MOVIE_DATA.filter(
     (movie) => movie.id === query_id
   )[0]
 
@@ -30,6 +31,7 @@ const MovieDetail = () => {
   return (
     <>
       <MovieBookingContainer>
+        <img src={imageUrl} alt="movie" />
         <MovieBookingHeader>
           <h2>
             {name} - {language}

@@ -1,10 +1,17 @@
 import styled from "styled-components"
 
 export const MovieBookingContainer = styled.div`
-  margin-top: 20%;
+  margin-top: 5%;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    height: auto;
+    width: auto;
+  }
 `
 
 export const MovieBookingHeader = styled.div`
