@@ -15,7 +15,9 @@ const Navigation = () => {
           <CrwnLogo />
         </LogoContainer>
         <NavLinks>
-          <NavLink to="/">HOME</NavLink>
+          <NavLink to="/" style={{ color: "white" }}>
+            HOME
+          </NavLink>
         </NavLinks>
       </NavigationContainer>
       <Outlet />

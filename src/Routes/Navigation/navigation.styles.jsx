@@ -9,6 +9,7 @@ export const NavigationContainer = styled.div`
   margin-bottom: 25px;
   margin-right: 100px;
   border-bottom: 1px solid #ddd;
+  background-color: #222930;
 `
 
 export const LogoContainer = styled(Link)`

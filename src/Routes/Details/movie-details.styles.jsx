@@ -22,4 +22,5 @@ export const ButtonsContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  margin-bottom: 5%;
 `
